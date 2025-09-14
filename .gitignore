@@ -1,0 +1,4 @@
+.venv/
+# Ignore PyCharm .idea folder
+.idea/
+.env

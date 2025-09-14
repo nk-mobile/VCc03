@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8081:8081"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://localhost:8001
+
+  backend:
+    build: ./backend
+    ports:
+      - "8001:8001"
+    depends_on:
+      - agent
+    environment:
+      - AGENT_URL=http://agent:5000
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+  agent:
+    build: ./agent
+    ports:
+      - "5000:5000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+networks:
+  default:
+    driver: bridge
